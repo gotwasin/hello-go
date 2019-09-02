@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-const webContent = "Hello OpenLandscape on Production v2!"
+const webContent = "Hello OpenLandscape on Production !!!"
 
 func main() {
 	http.HandleFunc("/", helloHandler)
