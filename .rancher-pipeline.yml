@@ -1,7 +1,5 @@
 stages:
 - name: Build
-  when:
-    branch: dev
   steps:
   - runScriptConfig:
       image: golang:1.11
@@ -11,17 +9,29 @@ stages:
         cd /go/src/github.com/rancher/pipeline-example-go
         go build -o bin/hello-server
         go test -cover
-- name: Publish
   when:
-    branch: dev
+    branch:
+      include:
+      - dev
+- name: Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: example-helloserver:${CICD_EXECUTION_SEQUENCE}
-- name: Deploy
   when:
-    branch: dev
+    branch:
+      include:
+      - dev
+- name: Deploy
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
+  when:
+    branch:
+      include:
+      - dev
+branch:
+  include:
+  - dev
+notification: {}
