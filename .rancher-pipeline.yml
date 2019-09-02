@@ -34,4 +34,7 @@ stages:
 branch:
   include:
   - dev
+  exclude:
+  - production
+  - master
 notification: {}
