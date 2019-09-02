@@ -1,5 +1,7 @@
 stages:
 - name: Build
+  when:
+    branch: dev
   steps:
   - runScriptConfig:
       image: golang:1.11
@@ -10,12 +12,16 @@ stages:
         go build -o bin/hello-server
         go test -cover
 - name: Publish
+  when:
+    branch: dev
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: example-helloserver:${CICD_EXECUTION_SEQUENCE}
 - name: Deploy
+  when:
+    branch: dev
   steps:
   - applyYamlConfig:
       path: ./deployment.yaml
