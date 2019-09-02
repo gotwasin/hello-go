@@ -28,7 +28,7 @@ spec:
         app: helloserver
     spec:
       imagePullSecrets:
-      - name: pipeline-docker-registry
+      - name: test-registry
       containers:
       - name: helloserver
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
