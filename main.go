@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-const webContent = "NEXPIE-OLS on Branch Production v1"
+const webContent = "NEXPIE-OLS on Branch Production v2"
 
 func main() {
 	http.HandleFunc("/", helloHandler)
