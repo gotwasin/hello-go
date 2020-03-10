@@ -1,18 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"log"
+   "log"
+   "net/http"
 )
 
-const webContent = "Hello OpenLandscape on Master!"
+type Server struct{}
 
-func main() {
-	http.HandleFunc("/", helloHandler)
-	log.Fatal(http.ListenAndServe(":80", nil))
+func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+   w.WriteHeader(http.StatusOK)
+   w.Header().Set("Content-Type", "application/json")
+   w.Write([]byte(`{"message": "hello world"}`))
 }
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, webContent)
+func main() {
+   s := &Server{}
+   http.Handle("/", s)
+   log.Fatal(http.ListenAndServe(":8080", nil))
 }
