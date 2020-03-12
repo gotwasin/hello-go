@@ -6,6 +6,11 @@ pipeline {
    }
    stages {
         stage('Check Availability') {
+           agent {
+               docker {
+                   image 'ubuntu'
+               }
+           }
           steps {             
               waitUntil {
                   try {         
