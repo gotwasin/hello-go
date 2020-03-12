@@ -6,15 +6,15 @@ pipeline {
    }
    stages {
         stage('Check Availability') {
-           agent {
-               docker {
-                   image 'ubuntu'
-               }
-           }
           steps {             
-              waitUntil {      
-                //   sh "kubectl rollout status --watch=true deployment $deploymentName | grep 'successfully'"
-                sh "curl -s --head --request GET  localhost:32075 | grep '200'"
+              waitUntil {
+                  try {         
+                    //   sh "kubectl rollout status --watch=true deployment $deploymentName | grep 'successfully'"
+                      sh "curl -s --head --request GET  localhost:32075 | grep '200'"
+                      return true
+                  } catch (Exception e) {
+                        return false
+                  }
               }
            }
        }
