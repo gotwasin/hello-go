@@ -12,7 +12,7 @@ pipeline {
               script{
                   try {         
                     //   sh "kubectl rollout status --watch=true deployment $deploymentName | grep 'successfully'"
-                    sh "curl -s --head --request GET  172.18.108.49:32075 | grep '200'"
+                    sh "curl -s --head --request GET  172.18.108.49:32076 | grep '200'"
                    } catch (Exception e) {
                         echo "$e"
                   }
