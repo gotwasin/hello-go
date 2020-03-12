@@ -1,5 +1,6 @@
 pipeline {
    agent any
+   timeout(time: 10, unit: 'SECONDS')
    environment {
        registry = "gotwasin/hello-go"
        GOCACHE = "/tmp"
@@ -7,15 +8,15 @@ pipeline {
    stages {
         stage('Check Availability') {
           steps {             
-            //   waitUntil {
-            //       try {         
+              waitUntil {
+                  try {         
                     //   sh "kubectl rollout status --watch=true deployment $deploymentName | grep 'successfully'"
             sh "curl -s --head --request GET  172.18.108.49:32075 | grep '200'"
-            //           return true
-            //       } catch (Exception e) {
-            //             return false
-            //       }
-            //   }
+                      return true
+                  } catch (Exception e) {
+                        return false
+                  }
+              }
            }
        }
     //    stage('Build') {
