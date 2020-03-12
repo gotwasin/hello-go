@@ -2,7 +2,6 @@
 
 pipeline {
    agent any
-   timeout(time: 10, unit: 'SECONDS')
    environment {
        registry = "gotwasin/hello-go"
        GOCACHE = "/tmp"
