@@ -1,24 +1,17 @@
 /////////////////////
 
 pipeline {
-   agent any
-   environment {
-       registry = "gotwasin/hello-go"
-       GOCACHE = "/tmp"
-   }
-   stages {
-        stage('Check Availability') {
-          steps {    
-              script{
-                  try {         
-                    //   sh "kubectl rollout status --watch=true deployment $deploymentName | grep 'successfully'"
-                    sh "curl -s --head --request GET  172.18.108.49:32076 | grep '200'"
-                   } catch (Exception e) {
-                        echo "$e"
-                  }
-              }
-           }
-       }
+    agent {
+        label 'dockerEnabledWindowsSlave'
+    }
+
+    stages {
+        stage('Example Build') {
+            steps {
+                echo 'test'
+            }
+        }
+    }
     //    stage('Build') {
     //        agent {
     //            docker {
@@ -77,5 +70,5 @@ pipeline {
     //            }
     //        }
     //    }
-   }
+
 }
